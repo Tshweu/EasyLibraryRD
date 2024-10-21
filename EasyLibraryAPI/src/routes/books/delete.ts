@@ -1,19 +1,18 @@
 import { Router, Request, Response} from 'express';
-import { Book } from '../../models/book';
 import { IBook } from '../../interfaces/IBook';
 const router : Router = Router();
 
 router.delete('/:id',async (req: Request,res: Response)=>{
     try {
         const id = req.params.id;
-        const book = await Book.findByIdAndDelete<IBook>(id);
+        const book = {};
         if(!book){
-            res.send('Book not found').status(401);
+            res.status(401).send('Book not found');
         }else{
-            res.send(book).status(200);
+            res.status(200).send(book);
         }
     } catch (err) {
-        return res.send(err.message).status(500);
+        return res.status(500).send(err.message);
     }
 })
 

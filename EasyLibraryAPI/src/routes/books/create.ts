@@ -1,23 +1,23 @@
-import { Router, Request, Response } from 'express';
-import { Book } from '../../models/book';
-import { IBook } from '../../interfaces/IBook';
-
+import { Router, Request, Response } from "express";
+import { IBook } from "../../interfaces/IBook";
+import con from "../../../db";
+import { BookRepository } from "../../repositories/BookRepository";
 const router: Router = Router();
 
-router.post('', async (req: Request, res: Response) => {
+router.post("", async (req: Request, res: Response) => {
   try {
     const new_book: IBook = {
       title: req.body.title,
       isbn: req.body.isbn,
       publisher: req.body.publisher,
-      publication_year: req.body.publication_year,
+      year: req.body.year,
       author: req.body.author,
       status: req.body.status,
-      condition: req.body.condition,
-      date: new Date().toLocaleDateString(),
+      book_condition: req.body.condition
     };
-    const book = await Book.create<IBook>(new_book);
-    res.send(book).status(201);
+
+    await new BookRepository().create(new_book);
+    res.status(201).send('success');
   } catch (err) {
     console.log(err);
     res.send(err.message).status(500);

@@ -1,26 +1,25 @@
 import { Router, Request, Response } from 'express';
 import { IBook } from '../../interfaces/IBook';
-import { StaffUser } from '../../models/staffUser';
-import { User } from '../../models/user';
 import { IUser } from '../../interfaces/IUser';
+import { MemberRepository } from '../../repositories/MemberRepository';
 const router: Router = Router();
 
 router.get('', async (req: Request, res: Response) => {
   try {
-    const users = await User.find<IUser>();
-    res.send(users).status(200);
+    const [members] = await new MemberRepository().getAll();
+    res.status(200).send(members);
   } catch (err) {
-    res.send(err.message).status(500);
+    res.status(500).send(err.message);
   }
 });
 
 router.get('/:id', async (req: Request, res: Response) => {
   try {
     const id = req.params.id;
-    const user = await User.findById<IUser>(id);
-    res.send(user).status(200);
+    const [member] = await new MemberRepository().getById(id);
+    res.status(200).send(member[0]);
   } catch (err) {
-    res.send(err.message).status(500);
+    res.status(500).send(err.message);
   }
 });
 

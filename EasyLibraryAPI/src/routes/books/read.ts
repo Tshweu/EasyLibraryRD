@@ -1,27 +1,28 @@
 import { Router, Request, Response } from 'express';
-import { Book } from '../../models/book';
 import { IBook } from '../../interfaces/IBook';
+import { BookRepository } from '../../repositories/BookRepository';
 const router: Router = Router();
 
 router.get('', async (req: Request, res: Response) => {
   try {
-    const books = await Book.find<IBook>();
-    res.send(books).status(200);
+    const [books] = await new BookRepository().getAll();
+    res.status(200).send(books);
   } catch (err) {
-    res.send(err.message).status(500);
+    res.status(500).send(err.message);
   }
 });
 
 router.get('/:id', async (req: Request, res: Response) => {
   try {
     const id = req.params.id;
-    const book = await Book.findById<IBook>(id);
-    if(!book){
-      return res.send('Book not found').status(404);
+    const [book] = await new BookRepository().getById(id);
+
+    if(!book[0]){
+      return res.status(404).send('Book not found');
     }
-    res.send(book).status(200);
+    return res.status(200).send(book[0]);
   } catch (err) {
-    res.send(err.message).status(500);
+    res.status(500).send(err.message);
   }
 });
 

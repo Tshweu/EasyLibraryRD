@@ -1,10 +1,12 @@
 export interface IBook{
+    book_id ?: number,
     title : string,
     isbn : string,
     publisher : string,
-    publication_year : number,
+    year : number,
     author : string,
     status : string,
-    condition : string,
-    date ?: string
+    book_condition : string,
+    date ?: string,
+    member_id ?: number
 }
