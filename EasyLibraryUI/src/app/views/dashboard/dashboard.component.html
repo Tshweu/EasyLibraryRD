@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="cards">
+    @for(item of cards;track item){
+    <app-number-card [details]="item"></app-number-card>
+    }
+  </div>
+  <div style="display: flex;">
+    <mat-form-field style="margin-right: 20px;">
+      <mat-label>Year</mat-label>
+      <mat-select>
+        @for(item of years;track item){
+        <mat-option [value]="item">
+          {{ item }}
+        </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Month</mat-label>
+      <mat-select>
+        @for(item of months;track item){
+        <mat-option [value]="item.id">
+          {{ item.name }}
+        </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <app-graph-card  [graph_data]="graph_data"></app-graph-card>
+</div>

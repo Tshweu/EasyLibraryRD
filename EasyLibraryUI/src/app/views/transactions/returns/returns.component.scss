@@ -1,0 +1,16 @@
+.container{
+  padding: 20px;
+}
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.grid-container{
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-template-rows: auto;
+  column-gap: 20px;
+}

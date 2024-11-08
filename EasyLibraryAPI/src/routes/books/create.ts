@@ -13,14 +13,13 @@ router.post("", async (req: Request, res: Response) => {
       year: req.body.year,
       author: req.body.author,
       status: req.body.status,
-      book_condition: req.body.condition
+      book_condition: req.body.book_condition
     };
 
-    await new BookRepository().create(new_book);
-    res.status(201).send('success');
+    const created_book = await new BookRepository().create(new_book);
+    res.status(201).send(created_book);
   } catch (err) {
-    console.log(err);
-    res.send(err.message).status(500);
+    res.status(500).send(err.message);
   }
 });
 

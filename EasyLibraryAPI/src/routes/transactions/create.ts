@@ -16,8 +16,9 @@ router.post("", async (req: Request, res: Response) => {
         member_id : req.body.member_id
     }
     //Validate that member is active
+    //Validate that user has access
     await new TransactionRepository().create(transaction);
-    return res.send("Created Question").status(200);
+    return res.status(201).send({});
   } catch (err) {
     console.error(
       `Error occurred while creating question: ${err.message}`,

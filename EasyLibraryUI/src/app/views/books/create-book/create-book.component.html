@@ -1,0 +1,11 @@
+<div class="container">
+  @if(loading){
+    <div class="spinner">
+      <mat-spinner></mat-spinner>
+    </div>
+  }@else{
+    <h5>Create Book</h5>
+    <app-book-form [(book_form)]="book_form" ></app-book-form>
+    <button mat-raised-button (click)="submit()">Submit</button>
+  }
+</div>

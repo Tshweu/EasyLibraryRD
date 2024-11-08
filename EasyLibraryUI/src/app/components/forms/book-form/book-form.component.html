@@ -1,0 +1,64 @@
+<form class="form-grid" [formGroup]="book_form">
+  <mat-form-field>
+    <mat-label>Title</mat-label>
+    <input
+      matInput
+      name="title"
+      formControlName="title"
+      required
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Author</mat-label>
+    <input
+      matInput
+      name="author"
+      formControlName="author"
+      required
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Publisher</mat-label>
+    <input
+      matInput
+      name="publisher"
+      formControlName="publisher"
+      required
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>ISBN</mat-label>
+    <input
+      matInput
+      name="isbn"
+      formControlName="isbn"
+      required
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Publication Year</mat-label>
+    <input
+      matInput
+      name="year"
+      type="number"
+      formControlName="year"
+      required
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Status</mat-label>
+    <mat-select formControlName="status" name="status">
+      @for (status of statuses; track status) {
+        <mat-option [value]="status">{{ status }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Condition</mat-label>
+    <mat-select formControlName="book_condition" name="condition">
+      @for (condition of conditions; track condition) {
+        <mat-option [value]="condition">{{ condition }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+</form>

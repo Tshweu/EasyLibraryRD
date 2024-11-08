@@ -1,0 +1,64 @@
+<form class="form-grid" [formGroup]="member_form">
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input
+      matInput
+      name="name"
+      formControlName="name"
+      required
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Surname</mat-label>
+    <input
+      matInput
+      name="surname"
+      formControlName="surname"
+      required
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input
+      matInput
+      name="email"
+      formControlName="email"
+      required
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Phone Number</mat-label>
+    <input
+      matInput
+      name="phone_number"
+      formControlName="phone_number"
+      required
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>ID Number</mat-label>
+    <input
+      matInput
+      name="id_number"
+      type="id_number"
+      formControlName="id_number"
+      required
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Status</mat-label>
+    <mat-select formControlName="status" name="status">
+      @for (status of statuses; track status) {
+        <mat-option [value]="status">{{ status }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Condition</mat-label>
+    <mat-select formControlName="member_condition" name="condition">
+      @for (condition of conditions; track condition) {
+        <mat-option [value]="condition">{{ condition }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+</form>

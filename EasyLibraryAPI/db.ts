@@ -13,7 +13,8 @@ let con = mysql.createPool({
     user: db_user,
     password: db_password,
     database: db_name,
-    multipleStatements: false
+    multipleStatements: false,
+    dateStrings: true
 });
 
 export default con;

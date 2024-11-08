@@ -1,7 +1,7 @@
 import express, { Express, Request, Response } from 'express';
 import createBook from './routes/books/create';
 import readBook from './routes/books/read';
-import updateBook from './routes/books/read';
+import updateBook from './routes/books/update';
 import deleteBook from './routes/books/read';
 import createStaff from './routes/staff_users/create';
 import readStaff from './routes/staff_users/read';

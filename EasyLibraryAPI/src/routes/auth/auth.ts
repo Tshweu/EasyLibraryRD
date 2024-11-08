@@ -14,17 +14,26 @@ router.post('',async (req: Request, res: Response)=>{
         email : req.body.email,
         password : req.body.password
     };
+
+    if(!login_data.email || !login_data.password){
+        return res.status(401).send('invalid email or password');
+    }
+
     let sql = `
         SELECT * FROM users WHERE email = ?;
     `;
     const result = await pool.execute(sql,[login_data.email]);
+    if(!result[0][0]){
+        return res.status(401).send('invalid login details');
+    }
     await compare(login_data.password,result[0][0].password,(authenticated)=>{
         if(authenticated){
             let payload = { subject: result[0][0].user_id };
             let token = jwt.sign(payload, key);
-            res.status(200).send({ "token": token });
+            return res.status(200).send({ "token": token });
+        }else{
+            return res.status(401).send('Invalid login details');
         }
-        res.status(401).send('Invalid login details');
     });
 })
 

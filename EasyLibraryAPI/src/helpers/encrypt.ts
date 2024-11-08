@@ -13,18 +13,15 @@ async function compare(userInputPassword, storedHashedPassword,authenticated) {
     async (err, out) => {
       if (err) {
         // Handle error
-        console.error("Error comparing passwords:", err);
         authenticated(false);
         return;
       }
       if (out) {
         // Passwords match, authentication successful
-        console.log("Passwords match! User authenticated.");
         authenticated(true);
         return;
       } else {
         // Passwords don't match, authentication failed
-        console.log("Passwords do not match! Authentication failed.");
         authenticated(false);
         return;
       }

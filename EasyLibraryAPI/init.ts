@@ -2,7 +2,9 @@ import mysql, { Connection, createConnection } from "mysql2/promise";
 import { hashPassword } from "./src/helpers/encrypt";
 import dotenv from 'dotenv';
 
-dotenv.config();
+dotenv.config({
+	path:'./.env.dev'
+});
 
 const db_host = process.env.DB_HOST;
 const db_user = process.env.DB_USER;
@@ -66,13 +68,24 @@ CREATE TABLE easy_library.books(
 );
 CREATE TABLE easy_library.transactions(
 	transaction_id INT AUTO_INCREMENT PRIMARY KEY,
-	book_id INT NOT NULL,
 	member_id INT NOT NULL,
 	user_id INT NOT NULL,
 	date_created DATETIME NOT NULL,
 	due_date DATETIME NOT NULL,
 	status VARCHAR(20),
-	returned BOOLEAN DEFAULT 0 NOT NULL);
+	total_books INT,
+	FOREIGN KEY (member_id) REFERENCES members(member_id),
+	FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+CREATE TABLE easy_library.transaction_books(
+  		transaction_id INT NOT NULL,
+		book_id INT NOT NULL,
+		returned BOOLEAN DEFAULT 0 NOT NULL,
+		date_returned DATETIME,
+		PRIMARY KEY (transaction_id, book_id),
+		FOREIGN KEY (transaction_id) REFERENCES transactions(transaction_id),
+		FOREIGN KEY (book_id) REFERENCES books(book_id)
+);
 CREATE TABLE easy_library.audit_trail_actions(
 	action_id INT PRIMARY KEY,
 	description VARCHAR(255) NOT NULL,
@@ -115,16 +128,14 @@ VALUES ('john','doe','0123654456','9827827383821','john@gmail.com','active',1,1,
 ALTER TABLE easy_library.users ADD CONSTRAINT fk_user_ufk FOREIGN KEY (created_by) REFERENCES users(user_id);
 `;
 
-
   await con.query(sql);
   con.end();
-  console.log('done');
 }catch(err){
   console.log(err.message);
 }
 
 }
 
-createTables();
+export default createTables;
 
 

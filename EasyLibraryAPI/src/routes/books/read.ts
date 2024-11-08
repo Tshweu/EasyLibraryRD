@@ -15,12 +15,12 @@ router.get('', async (req: Request, res: Response) => {
 router.get('/:id', async (req: Request, res: Response) => {
   try {
     const id = req.params.id;
-    const [book] = await new BookRepository().getById(id);
+    const book = await new BookRepository().getById(id);
 
-    if(!book[0]){
+    if(!book){
       return res.status(404).send('Book not found');
     }
-    return res.status(200).send(book[0]);
+    return res.status(200).send(book);
   } catch (err) {
     res.status(500).send(err.message);
   }

@@ -1,0 +1,30 @@
+<mat-toolbar>
+  <button mat-button routerLink="dashboard">Dashboard</button>
+  <button mat-button [matMenuTriggerFor]="books_menu">Books</button>
+  <button mat-button [matMenuTriggerFor]="transaction_menu">
+    Transactions
+  </button>
+  <button mat-button [matMenuTriggerFor]="member_menu">
+    Members
+  </button>
+</mat-toolbar>
+
+<mat-menu #books_menu="matMenu">
+  <button mat-menu-item routerLink="books/manage">Manage</button>
+  <button mat-menu-item routerLink="books/create">Add Book</button>
+</mat-menu>
+<mat-menu #transaction_menu="matMenu">
+  <button mat-menu-item routerLink="transactions/manage">
+    Manage Transactions
+  </button>
+  <button mat-menu-item routerLink="transactions/check-out">
+    Check out books
+  </button>
+  <button mat-menu-item routerLink="transactions/return">Return books</button>
+</mat-menu>
+<mat-menu #member_menu="matMenu">
+  <button mat-menu-item routerLink="members/manage">Manage</button>
+  <button mat-menu-item routerLink="members/register">Register</button>
+</mat-menu>
+
+<router-outlet></router-outlet>
